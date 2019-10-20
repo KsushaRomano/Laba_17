@@ -1,4 +1,4 @@
-﻿using namespace std;
+using namespace std;
 
 #include <iostream>
 
@@ -21,6 +21,11 @@ int main()
 	cout << "Введите размер серии L: ";
 	cin >> L;
 	h = A[0];
+	if (A[N - 2] != A[N - 1]) {
+		if (A[N - 1] != A[N]) {
+			p++;
+		};
+	};
 	for (i = 1; i <= N; i++) {
 		if (h != A[i])
 		{
@@ -58,7 +63,7 @@ int main()
 				B[i] = 0;
 			}
 			else if (l <= L) {
-				while ((g) <= (j)) {
+				while (g <= j) {
 					B[i] = A[g];
 					i++;
 					g++;
