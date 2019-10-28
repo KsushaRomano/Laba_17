@@ -5,12 +5,7 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int N, i, h, l, k, j, p, L, g;
-	k = 0;
-	l = 1;
-	p = 0;
-	j = 1;
-	g = 0;
+	int N, i, l, k, j, p, L;
 	cout << "Введите размер массива: ";
 	cin >> N;
 	int* A = new int[N];
@@ -20,62 +15,49 @@ int main()
 	};
 	cout << "Введите размер серии L: ";
 	cin >> L;
-	h = A[0];
-	if (A[N - 2] != A[N - 1]) {
-		if (A[N - 1] != A[N]) {
-			p++;
-		};
-	};
-	for (i = 1; i <= N; i++) {
-		if (h != A[i])
-		{
-			l = 1;
-		}
-		else
-		{
-			while (A[i - 1] == A[i]) {
-				l++;
-				i++;
-			};
+	k = 1;
+	p = 0;
+	for (i = 0; i < N; i++) {
+		if (A[i] == A[i + 1]) {
 			k++;
-		};
-		h = A[i];
-		if (l <= L) {
-			p++;
+		}
+		else {
+			if (k > L) {
+				k = 1;
+				p++;
+			}
+			else {
+				for (j = 0; j < k; j++) {
+					p++;
+				};
+				k = 1;
+			};
 		};
 	};
-	int* B = new int[k + p];
-	h = A[0];
-	l = 1;
-	for (i = 0; i < (p + k); i++) {
-		if (h != A[j])
-		{
-			B[i] = h;
+	int* B = new int[p];
+	k = 1;
+	l = 0;
+	for (i = 0; i < N; i++) {
+		if (A[i] == A[i + 1]) {
+			k++;
 		}
-		else
-		{
-			g = j - 1;
-			while (A[j - 1] == A[j]) {
-				j++;
+		else {
+			if (k > L) {
+				B[l] = 0;
+				k = 1;
 				l++;
-			};
-			if (l > L) {
-				B[i] = 0;
 			}
-			else if (l <= L) {
-				while (g <= j) {
-					B[i] = A[g];
-					i++;
-					g++;
+			else {
+				for (j = 0; j < k; j++) {
+					B[l] = A[i];
+					l++;
 				};
+				k = 1;
 			};
 		};
-		l = 1;
-		h = A[j];
-		j++;
 	};
 	cout << "Измененный массив: " << endl;
-	for (i = 0; i < p + k; i++) {
+	for (i = 0; i < p; i++) {
 		cout << B[i] << endl;
 	};
 }
