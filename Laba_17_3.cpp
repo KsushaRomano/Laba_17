@@ -1,15 +1,11 @@
-﻿using namespace std;
+using namespace std;
 
 #include <iostream>
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int N, i, h, l, k, j, p, K, g, gp, pp;
-	k = 0;
-	p = 0;
-	j = 1;
-	g = 0;
+	int N, i, m, p, c, q, j, K;
 	cout << "Введите размер массива: ";
 	cin >> N;
 	int* A = new int[N];	
@@ -20,48 +16,36 @@ int main()
 	};
 	cout << "Введите номер серии К: ";
 	cin >> K;
-	h = A[0];
-	for (i = 1; i <= N; i++) {
-		if (h != A[i])
-		{
-			k++;
+	m = 1;
+	p = 0;
+	q = (K == 1 ? 1 : 0);
+	j = 0;
+	for (i = 1; i < N; i++) {
+		if (A[i - 1] != A[i]) {
+			m++;
+			if (m == K) p = i;
+			c = i;
 		}
-		else
-		{
-			l = i - 1;
-			while (A[i - 1] == A[i]) {
-				i++;
-				j++;
-			};
-			k++;
-		};
-		if (k == K) {
-			g = l;
-			p = j;
-		};
-		h = A[i];
+		if (m == K) q++;
+	}
+	for (i = 0; i < p; i++) {
+		B[j] = A[i];
+		j++;
 	};
-	gp = l;
-	pp = j;
-	h = 1;
-	while (i < g) {
-		B[i] = A[i];
-		i++;
+	for (i = c; i < N; i++) {
+		B[j] = A[i];
+		j++;
 	};
-	while (h <= pp) {
-		B[i] = A[gp];
-		gp++;
-		i++;
-		h++;
+	for (i = p + q; i < c; i++) {
+		B[j] = A[i];
+		j++;
 	};
-	while (i < gp) {
-		B[i] = A[i + pp];
-		i++;
+	for (i = p; i < p + q; i++) {
+		B[j] = A[i];
+		j++;
 	};
-	while (i < N) {
-		B[i] = A[g];
-		i++;
-		g++;
+	for (i = 0; i < N; i++) {
+		A[i] = B[i];
 	};
 	cout << "Измененный массив: " << endl;
 	for (i = 0; i < N; i++) {
